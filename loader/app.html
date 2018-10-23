@@ -25,6 +25,7 @@
     <div class="container">
       <a class="navbar-brand" href="#">Pingendo</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Modal</button>
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item mx-2">
@@ -96,12 +97,12 @@ btn navbar-btn mx-2">O my friend</h1>
       <!--  -->
     </div>
   </div>
-  <div class="py-5">
+  <div class="py-5 bg-dark">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <ul id="idlist-group" class="list-group">
-            
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Cras justo odio <span class="badge badge-primary badge-pill">14</span> </li>
             <li class="list-group-item d-flex justify-content-between align-items-center"> Dapibus ac facilisis in <span class="badge badge-primary badge-pill">2</span> </li>
             <li class="list-group-item d-flex justify-content-between align-items-center"> Morbi leo risus <span class="badge badge-primary badge-pill">1</span> </li>
           </ul>
@@ -109,6 +110,38 @@ btn navbar-btn mx-2">O my friend</h1>
       </div>
     </div>
   </div>
+  <!-- modal -->
+  <div class="modal fade" style="" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <p class="">Tab pane two. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="tab-pane fade" id="tabthree" role="tabpanel">
+              <p class="">Tab pane three. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+          <h4 class="modal-title text-primary">Modal title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="" class="active nav-link" data-toggle="tab" data-target="#tabone">Tab 1</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="" data-toggle="tab" data-target="#tabtwo">Tab 2</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="tab" data-target="#tabthree">Tab 3</a> </li>
+          </ul>
+        </div>
+        <div class="modal-body">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%">50%</div>
+          </div>
+        </div>
+        <div class="modal-footer"> <button type="button" class="btn btn-primary">Save changes</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -118,7 +151,6 @@ btn navbar-btn mx-2">O my friend</h1>
   <!-- 数据报表 -->
   <script src="js/ajax_info.js"></script>
   <script src="js/ajax_chart.js"></script>
-  <script src="js/ajax_list.js"></script>
 </body>
 
 </html>

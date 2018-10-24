@@ -1,0 +1,65 @@
+{
+	"dev":[
+	{ 
+		"name":"红中麻将" , 
+		"id":"hongzhongmajiang",
+		"time":"2018-10-20 18:30:20",
+		"author":"zzzz",
+		"type":"dev",
+		"icon":"hongzhongmajiang_dev.png"
+	},
+	{ 
+		"name":"常德麻将" , 
+		"id":"changdemajiang",
+		"time":"2018-10-21 18:30:20",
+		"author":"zzzz",
+		"type":"dev",
+		"icon":"changdemajiang_dev.png"
+	},
+	{ 
+		"name":"跑得快" , 
+		"id":"paodeikuai",
+		"time":"2018-10-23 18:30:20",
+		"author":"zzzz",
+		"type":"dev",
+		"icon":"paodeikuai_dev.png"
+	},
+	{ 
+		"name":"斗地主" , 
+		"id":"doudizhu",
+		"time":"2018-10-24 18:30:20",
+		"author":"zzzz",
+		"type":"dev",
+		"icon":"doudizhu_dev.png"
+	},
+	{ 
+		"name":"湖南麻将" , 
+		"id":"hunanmajiang",
+		"time":"2018-10-25 18:30:20",
+		"author":"zzzz",
+		"type":"dev",
+		"icon":"hunanmajiang_dev.png"
+	}
+
+	],
+
+	"dis":[
+	{ 
+		"name":"扎鸟麻将" , 
+		"id":"zhaniaomajiang",
+		"time":"2018-10-22 18:30:20",
+		"author":"zzzz",
+		"type":"dis",
+		"icon":"zhaniaomajiang_dis.png"
+	},
+	{ 
+		"name":"筑志合集" , 
+		"id":"zhuzhiheji",
+		"time":"2018-10-26 18:30:20",
+		"author":"zzzz",
+		"type":"dis",
+		"icon":"zhuzhiheji_dis.png"
+	}
+
+]
+}

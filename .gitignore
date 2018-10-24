@@ -59,3 +59,11 @@ typings/
 
 # next.js build output
 .next
+games/.DS_Store
+games/Dev/.DS_Store
+games/Dev/hongzhongmajiang/.DS_Store
+games/icons/.DS_Store
+loader/.DS_Store
+loader/icons/.DS_Store
+loader/js/.DS_Store
+loader_server/.DS_Store

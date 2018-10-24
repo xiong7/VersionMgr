@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="neon.css">
+  <script src="js/ajax_gamelist.js"></script>
+  <script> requestGamelist('dis')
+</script>
+</head>
+
+<body class="bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container"> <a class="navbar-brand" href="#">
+        <i class="fa d-inline fa-lg fa-circle-o"></i>
+        <b> BRAND</b>
+      </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar11">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar11">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Product</a> </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link" href="#">Services</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#">FAQ</a> </li>
+        </ul> <a class="btn btn-primary navbar-btn ml-md-2">Contact us</a>
+      </div>
+    </div>
+  </nav>
+  <div class="py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 pb-3"><a class="btn btn-primary btn-lg btn-block" href="#" data-toggle="modal" data-target="#myModal">创建游戏</a></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 pb-0 pt-3" style="">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"> <a href="" class="active nav-link" data-toggle="tab" data-target="#tabone" onclick="requestGamelist('dis')">正式版本</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="" data-toggle="tab" data-target="#tabtwo" onclick="requestGamelist('dev')">开发版本</a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <p class="">正式版本游戏列表, 提供给线上的游戏使用.</p>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <p class="">开发版本游戏列表, 测试或者测试服务器上的游戏使用.</p>
+            </div>
+          </div>
+          <div class="container" id="msg_alert"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="gamelist_container">
+      <div class="row pb-4">
+        <div class="col-md-3">
+          <div class="card"> <img class="card-img-top" src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg" alt="Card image cap">
+            <div class="card-body bg-warning">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> <a href="#" class="btn btn-dark btn-block">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="modal fade p-5" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="col-md-12">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-content" id= "modal_alert">
+              </div>
+              <div class="modal-header">
+                <h5 class="modal-title text-dark" contenteditable="true">创建游戏</h5>
+              </div>
+              <div class="modal-body" style="">
+                <form id="c_form-h" class="">
+                  <div class="form-group row"> <label for="input_name" class="col-form-label text-dark col-3">游戏名</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control text-dark" id="input_name" placeholder="name" name="筑志游戏"> </div>
+                  </div>
+                  <div class="form-group row"> <label for="input_gameid" class="col-form-label text-dark col-3">游戏编号</label>
+                    <div class="col-9">
+                      <input type="text" class="form-control text-dark" id="input_gameid" placeholder="zhuzhiyouxi"> </div>
+                  </div>
+                  <div class="row pb-2">
+                    <div class="col-md-4"><a class="btn btn-info w-100" href="#">上传版本内容</a></div>
+                    <div class="col-md-8"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="btn-group w-100">
+                        <button type="button" class="btn btn-primary btn-lg">版本类型</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(128px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" href="#" onclick="selectGameMode('dis')">正式版</a>
+                          <a class="dropdown-item" href="#" onclick="selectGameMode('dev')">开发版</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w-50 col-md-7">
+                      <h1 class="text-left text-dark" id="id_gamemode" value="dis" >正式版</h1>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createGame()" >确定</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+</body>
+
+</html>

@@ -3,6 +3,9 @@ var express = require('express');
 // 调用 express 实例，它是一个函数，不带参数调用时，会返回一个 express 实例，将这个变量赋予 app 变量。
 var app = express();
 
+var gamelist = require("./script/gamelist")
+
+
 // app 本身有很多方法，其中包括最常用的 get、post、put/patch、delete，在这里我们调用其中的 get 方法，为我们的 `/` 路径指定一个 handler 函数。
 // 这个 handler 函数会接收 req 和 res 两个对象，他们分别是请求的 request 和 response。
 // request 中包含了浏览器传来的各种信息，比如 query 啊，body 啊，headers 啊之类的，都可以通过 req 对象访问到。
@@ -26,11 +29,59 @@ app.post('/atomlogin', function (req, res) {
     })
 });
 
+app.get("/gamelist", function(req , res){
+    var query = req.query;
+    if(query){
+        console.log(query)
+        var _type = query.mode;
+        if(_type){
+            var data = {};
+            if(_type == "dev"){
+                data = gamelist.getDevList();
+            }else{
+                data = gamelist.getDisList();
+            }
 
+            res.send(JSON.stringify(data));
+        } 
+    }   
+});
+
+app.get("/createitem",function(req,res){
+    console.log(">>>> createitem ");
+    var query = req.query;
+    if(query){
+        console.log(query)
+        var name    = query.name;
+        var gameid  = query.gameid;
+        var mode    = query.mode;
+
+        if(name && gameid && mode){
+            var item_ = gamelist.makeGameItem()
+            item_.name = name;
+            item_.id   = gameid;
+            item_.type = mode;
+
+            gamelist.addGameItem(item_ , mode);
+            gamelist.localSave();
+
+            //返回内容
+            var data = {}
+            data.code = 1;
+            data.msg  = "success"
+            res.send(JSON.stringify(data));
+        }else{
+            var data = {}
+            data.code = 0;
+            data.msg  = "游戏信息内容不能为空"
+            res.send(JSON.stringify(data));
+        } 
+    }   
+});
 
 // 定义好我们 app 的行为之后，让它监听本地的 3000 端口。这里的第二个函数是个回调函数，会在 listen 动作成功后执行，我们这里执行了一个命令行输出操作，告诉我们监听动作已完成。
-app.listen(3000, function () {
-  	console.log('app is listening at port 3000');
+app.listen(3600, function () {
+  	console.log('app is listening at port 3600');
 });
 
 app.use(express.static("./../loader"))

@@ -38,8 +38,19 @@ function requestGamelist(mode)
        						//add end
        						context_ += "</div><div class=\"row pb-4\">";
        					}
-       					var item = list_[i];
-       					context_ += "<div class=\"col-md-3\"><div class=\"card\"> <img class=\"card-img-top\" src=\"/icons/"+ item.icon+"\" height=240px alt=\"Card image cap\"><div class=\"card-body bg-warning\"><h5 class=\"card-title\">"+ item.name+"</h5><p class=\"card-text\">创建时间:" +item.time+"</p> <a href=\"gameitem.html?game=" +item.id + "\" class=\"btn btn-dark btn-block\">查看版本</a></div></div></div>";
+       					var item  = list_[i];
+       					var parme = encodeURI("game=" +item.id + "&name="+ item.name+ "&icon="+ item.icon)
+       					console.log(">>>> parme "+ parme);
+       					context_  =  context_ + "<div class=\"col-md-3\"> " 
+       										 +		"<div class=\"card\"> "
+       										 +			"<img class=\"card-img-top\" src=\"/icons/"+ item.icon+"\" height=240px alt=\"Card image cap\">"
+       										 +			"<div class=\"card-body bg-warning\">"
+       										 +				"<h5 class=\"card-title\">"+ item.name+"</h5>"
+       										 +				"<p class=\"card-text\">创建时间:" +item.time+"</p>"
+       										 +				"<a href=\"gameitem.html?"+ parme + "\" class=\"btn btn-dark btn-block\">查看版本</a>"
+       										 +			"</div>"
+       										 +		"</div>"
+       										 +	"</div>";
        				};
 
        				context_ += "</div>";

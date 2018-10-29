@@ -48,12 +48,15 @@ gamelist_info.prototype.addGameItem = function(item, type_){
 		}else{
 			this.games.dis.unshift(item)
 		}
+
+		this.localSave()//本地保存
 	}	
 };
 
 //序列化成文件
 gamelist_info.prototype.localSave = function(){
-	
+	var str = JSON.stringify(this.games)
+	fs.writeFileSync(conf.gamelistFile,str);
 };
 
 const gamelist = new gamelist_info()

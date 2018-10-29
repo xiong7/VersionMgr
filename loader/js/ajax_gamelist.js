@@ -39,7 +39,7 @@ function requestGamelist(mode)
        						context_ += "</div><div class=\"row pb-4\">";
        					}
        					var item = list_[i];
-       					context_ += "<div class=\"col-md-3\"><div class=\"card\"> <img class=\"card-img-top\" src=\"/icons/"+ item.icon+"\" alt=\"Card image cap\"><div class=\"card-body bg-warning\"><h5 class=\"card-title\">"+ item.name+"</h5><p class=\"card-text\">创建时间:" +item.time+"</p> <a href=\"gameitem.html?game=" +item.id + "\" class=\"btn btn-dark btn-block\">查看版本</a></div></div></div>";
+       					context_ += "<div class=\"col-md-3\"><div class=\"card\"> <img class=\"card-img-top\" src=\"/icons/"+ item.icon+"\" height=240px alt=\"Card image cap\"><div class=\"card-body bg-warning\"><h5 class=\"card-title\">"+ item.name+"</h5><p class=\"card-text\">创建时间:" +item.time+"</p> <a href=\"gameitem.html?game=" +item.id + "\" class=\"btn btn-dark btn-block\">查看版本</a></div></div></div>";
        				};
 
        				context_ += "</div>";
@@ -53,24 +53,41 @@ function requestGamelist(mode)
 };
 
 function selectGameMode(mode){
-	if(mode == "dev"){
-		document.getElementById("id_gamemode").innerHTML = "开发版";
-		document.getElementById("id_gamemode").value = "dev"
-	}else{
-		document.getElementById("id_gamemode").innerHTML = "正式版";
-		document.getElementById("id_gamemode").value = "dis"
-	}
+	// if(mode == "dev"){
+	// 	document.getElementById("id_gamemode").innerHTML = "开发版";
+	// 	document.getElementById("id_gamemode").value = "dev"
+	// }else{
+	// 	document.getElementById("id_gamemode").innerHTML = "正式版";
+	// 	document.getElementById("id_gamemode").value = "dis"
+	// }
 
 }
 
 function createGame(){
 	var name 	= document.getElementById("input_name").value ;
 	var gameid  = document.getElementById("input_gameid").value;
-	var mode = document.getElementById("id_gamemode").value;
-	console.log(">>> modal mode select :",mode);
+	// var mode = document.getElementById("id_gamemode").value;
+	// console.log(">>> modal mode select :",mode);
+	var mode_ 
+	var radios = document.getElementsByName("mode_radio")
+	if(radios){
+		for (var i = 0; i < radios.length; i++) {
+			if(radios[i].checked){
+				mode_ = radios[i].value
+				console.log(">>>>>> "+ radios[i].value);
+			}
+		};
+	}
 
-	if(name && gameid){
+	if(name && gameid && mode_){
 		//发送给服务器注册
+
+		var oData = new FormData(document.forms.namedItem("fileinfo"));
+		oData.append("CustomField","This is some extra data");
+		oData.append("gameid",gameid);
+		oData.append("name",name);
+		oData.append("mode",mode_);
+
 		var xmlhttp;
 	    if (window.XMLHttpRequest)
 	    {
@@ -102,9 +119,12 @@ function createGame(){
 	       		}
 	      	}
 	    }
-	    console.log('>>> url ', "/createitem?mode="+ mode+ "&name="+ name+"&gameid=" +gameid);
-	    xmlhttp.open("GET","/createitem?mode="+ mode+ "&name="+ name+"&gameid=" +gameid ,true);
-	    xmlhttp.send();
+	    // console.log('>>> url ', "/createitem?mode="+ mode+ "&name="+ name+"&gameid=" +gameid);
+	    // xmlhttp.open("GET","/createitem?mode="+ mode+ "&name="+ name+"&gameid=" +gameid ,true);
+	    // xmlhttp.send();
+
+	    xmlhttp.open("post","../upload",true);
+        xmlhttp.send(oData);
 		
 	}else{
 		showAlert(true,"游戏名、游戏编号、版本等信息不能为空!!!",3000)
@@ -132,3 +152,22 @@ function showAlert(isModal,msg,timeout){
 		}	
 	}
 }
+
+function setFormUpload(){
+    //upload file
+    $("#file_input").fileinput({
+    	language : 'zh',
+    	showUpload: false, //是否显示上传按钮
+    	showCancel: false,
+        uploadUrl: '/upload', // you must set a valid URL here else you will get an error
+        allowedFileExtensions : ['jpg', 'png','gif'],
+        overwriteInitial: false,
+        maxFileSize: 10000,
+        maxFilesNum: 1,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function(filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+	});
+ 
+};

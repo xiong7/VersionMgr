@@ -41,16 +41,54 @@ gamelist_info.prototype.makeGameItem = function(){
 };
 
 //添加游戏节点到列表中
-gamelist_info.prototype.addGameItem = function(item, type_){
-	if(item && type_){
-		if(type_ == "dev"){
+gamelist_info.prototype.addGameItem = function(item, mode){
+	if(item && mode){
+		if(mode == conf.Dev){
 			this.games.dev.unshift(item)
 		}else{
 			this.games.dis.unshift(item)
 		}
 
-		this.localSave()//本地保存
+		
 	}	
+};
+
+//检查游戏ID
+gamelist_info.prototype.checkID = function(gameid,mode){
+	var list = this.games.dis;
+	if(mode == conf.Dev){
+		list = this.games.dev;
+	}
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		if(item && item.id == gameid){
+			return true
+		}
+	};
+
+	return false;
+};
+
+gamelist_info.prototype.makeDir = function(item_){
+	if(item_){
+		var mode   = item_.mode;
+		var gameid = item_.id;
+
+		var dir = conf.gameDisDir + "/" + gameid;
+		if(mode == conf.Dev){
+			dir = conf.gameDevDir + "/" + gameid;
+		}
+
+		fs.mkdir(dir,function(error){
+		    if(error){
+		    	console.log('makeDir >>> 创建目录失败' + gameid);
+		        console.log(error);
+		        return false;
+		    }
+		    console.log('>>> 创建目录成功' + gameid );
+		})
+	}
 };
 
 //序列化成文件

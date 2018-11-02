@@ -3,7 +3,7 @@
  * Add .navbar-ontop class to navbar when the page is scrolled to top
  * Make sure to add this script to the <head> of page to avoid flickering on load
  */
-var uiShowMode = "dis"
+var uiShowMode = 1
 function requestGamelist(mode)
 {
 	uiShowMode = mode;//
@@ -39,7 +39,7 @@ function requestGamelist(mode)
        						context_ += "</div><div class=\"row pb-4\">";
        					}
        					var item  = list_[i];
-       					var parme = encodeURI("game=" +item.id + "&name="+ item.name+ "&icon="+ item.icon)
+       					var parme = encodeURI("game=" +item.id + "&name="+ item.name+ "&icon="+ item.icon + "&mode=" + mode)
        					console.log(">>>> parme "+ parme);
        					context_  =  context_ + "<div class=\"col-md-3\"> " 
        										 +		"<div class=\"card\"> "
@@ -124,6 +124,12 @@ function createGame(){
 	       				//提示
 	       				showAlert(false,"创建成功!!!",3000)
 	       				return
+	       			}else{
+	       				if(data){
+	       					showAlert(true,data.msg,3000)
+	       				}else{
+	       					showAlert(true,"创建失败无数据返回",3000)
+	       				}
 	       			}
 
 

@@ -6,7 +6,7 @@ const Conf = {
 	zipSaveDir	 : "./uploadFiles",
 	tempDir		 : "./temp",
 	versionBackup: "./Backup",
-
+	modelPath    : "./conf/model",
 	//模式
 	Dev : 0,
 	Dis : 1

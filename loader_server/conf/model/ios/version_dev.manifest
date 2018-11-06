@@ -1,0 +1,9 @@
+{
+	"packageUrl" : "http://www.xxxx.com.com/ios/",
+	"remoteManifestUrl" : "http://www.xxxx.com/ios/project_dev.manifest",
+	"remoteVersionUrl"  : "http://www.xxxx.com/ios/version_dev.manifest",
+	"version" : "0.0.0",
+	"engineVersion" : "3.x dev",
+	"searchPaths" : [ "src","res" ]
+
+}

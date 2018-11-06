@@ -58,22 +58,50 @@ function createVersion(req,res,next){
         }
         //filename //file.filename
 
-
-        //热更内容的比对和生成操作
-        versionMgr.makeVersionManifast(file.filename , gameid ,version ,baseVersion ,mode ,function(code_ , msg_){
-            console.log(">>> 版本操作创建结果" + gameid  + " "+ version + "  code:" + code_ + " msg:"+ msg_);
-            //返回内容
-            res.send(JSON.stringify({ code:code_ , msg:msg_ }));
-        })
+        try{
+            //热更内容的比对和生成操作
+            versionMgr.makeVersionManifast(file.filename , gameid ,version ,baseVersion ,mode ,function(code_ , msg_){
+                console.log(">>> 版本操作创建结果" + mode + " "+ gameid  + " "+ version + "  code:" + code_ + " msg:"+ msg_);
+                //返回内容
+                res.send(JSON.stringify({ code:code_ , msg:msg_ }));
+            })
+        }catch(e){
+            console.log(">>> 版本操作失败" + e);
+            res.send(JSON.stringify({ code:0 , msg:"版本操作失败看LOG!!" }));
+        }
+        
     }else{
         res.send(JSON.stringify({ code:0 , msg:"游戏版本内容不能为空" }));
     }
+}
+
+function deleteVersion(req,res,next){
+    console.log(">>>> deleteVersion ");
+    var query = req.query;
+    if(query){
+        console.log(query)
+        var gameid  = query.gameid;
+        var mode    = query.mode;
+        var version = query.version;
+        if(gameid && mode && version){
+            //需要检查账号权限
+            var versions = versionMgr.deleteVersion(mode,gameid,version, function(code_ , msg_){
+                console.log(">>> 版本删除结果" + mode + " " + gameid  + " "+ version + "  code:" + code_ + " msg:"+ msg_);
+                //返回内容
+                res.send(JSON.stringify({ code:code_ , msg:msg_ }));
+            })
+
+        }else{
+            res.send(JSON.stringify({ code:0 , msg:"游戏内容不能为空" }));
+        } 
+    }  
 }
 
 module.exports = function(app){
     if(app){
         //监听 list列表的相关接口
         app.get("/gameversions", getGameVersions); //获取游戏版本列表
+        app.get("/delete", deleteVersion); //获取游戏版本列表
         app.post("/uploadVersion", upload.single('zipfile') , createVersion); //接收上传的Zip
     }
 }

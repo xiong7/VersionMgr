@@ -36,8 +36,48 @@ function createNewVersion(){
   $('#myModal').modal('show')
 }
 
-function editversion(){
-  alert(">>> 暂时 <<<");
+function editversion(version){
+  alert(">>> 暂时 <<<" + version);
+}
+
+function deleteVersion(version){
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          var respones_ = xmlhttp.responseText;
+          if(respones_){
+              var data = JSON.parse(respones_);
+              if(data){
+                if(data.code == 1){
+                  //刷新UI
+                  getGameVersions()
+                  //提示
+                  alert("删除版本成功!\n(如果是误删除立刻联系管理员!)");
+                  return
+                }else{
+                  alert("操作失败:" + data.msg);
+                }
+                
+              }else{
+                showAlert(true,"失败无数据返回",3000)
+              }
+          } 
+        }
+    }
+    xmlhttp.open("GET","/delete?mode="+ this.mode + "&gameid=" + this.gameid + "&version=" + version ,true);
+    xmlhttp.send();     
 }
 
 //游戏的版本列表
@@ -68,7 +108,17 @@ function getGameVersions(){
                 var item_ = list_[i]
                 if(item_ && item_.type== "dir"){
                   var value = item_.value;
-                  context_ += "<a href=\"#\" class=\"list-group-item list-group-item-action\" onclick=\"editversion()\" > version "+ value+" </a>";
+                  // context_ += "<a href=\"#\" class=\"list-group-item list-group-item-action\" onclick=\"editversion()\" > version "+ value+" </a>";
+                  context_ = context_ + '<div class="list-group-item list-group-item-action">                                               '   
+                                      + '  <div class="row">                                                                                '   
+                                      + '    <div class="col-md-11">                                                                        '
+                                      + '      <a href="#" class="version_edit" onclick="editversion(\'' + value+ '\')" > version '+ value +' </a>          '    
+                                      + '    </div>                                                                                         ' 
+                                      + '    <div class="col-md-1">                                                                         '   
+                                      + '      <a href="#" class="version_dele" onclick="deleteVersion(\'' + value+ '\')" > 删除 </a>                        '              
+                                      + '    </div>                                                                                         '
+                                      + '  </div>                                                                                           '     
+                                      + '</div>                                                                                             '     
                   
                   select_versions += "<a class=\"dropdown-item\" href=\"#\" onclick=\"selectVesion('"+ value +"')\">"+ value+ "</a>";
                 }
@@ -127,7 +177,8 @@ function createVersion(){
       xmlhttp.onreadystatechange=function()
       {
           if (xmlhttp.readyState==4 && xmlhttp.status==200)
-          {
+          {    
+            closeLoading("vermgrloading")
             var respones_ = xmlhttp.responseText;
             if(respones_){
               var data = JSON.parse(respones_);
@@ -138,7 +189,7 @@ function createVersion(){
                   getGameVersions()
                   //提示
                   showAlert(false,"创建成功!!!",3000)
-                return
+                  return
                 }else if(data.code == 2){
                   document.getElementById("version_prgress").style = "width: " + data.msg + "%;"
                   document.getElementById("version_prgress_txt").innerHTML = data.msg + "%"
@@ -155,6 +206,7 @@ function createVersion(){
 
       xmlhttp.open("post","../uploadVersion",true);
       xmlhttp.send(oData);
+      showLoading("处理版本中请稍后!!!")
     
   }else{
     showAlert(true,"游戏版本等信息不能为空!!!",3000)
@@ -180,6 +232,38 @@ function showAlert(isModal,msg,timeout){
     } 
   }
 }
+
+function showLoading(msg){
+  $('body').loading({
+      loadingWidth:240,
+      title:'',
+      name:'vermgrloading',
+      discription:msg,
+      direction:'column',
+      type:'origin',
+      // originBg:'#71EA71',
+      originDivWidth:40,
+      originDivHeight:40,
+      originWidth:6,
+      originHeight:6,
+      smallLoading:false,
+      loadingMaskBg:'rgba(0,0,0,0.2)'
+    });
+}
+function closeLoading(loadingName){
+  var loadingName = loadingName || '';
+  $('body,html').css({
+    overflow:'auto',
+  });
+
+  if(loadingName == ''){
+    $(".cpt-loading-mask").remove();
+  }else{
+    var name = loadingName || 'loadingName';
+    $(".cpt-loading-mask[data-name="+name+"]").remove();    
+  }
+}
+
 function setFormUpload(){
     //upload file
   //   $("#file_input").fileinput({

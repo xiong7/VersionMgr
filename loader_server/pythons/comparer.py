@@ -92,4 +92,5 @@ if __name__ == '__main__':
     ucontent_ = sys.argv[3]
 
     EQU()
+    print("main_end");
     # print "-----------------------success-------------------"

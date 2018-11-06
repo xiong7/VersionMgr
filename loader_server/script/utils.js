@@ -1,7 +1,7 @@
 const fs = require("fs");
 const exec = require("child_process").exec
 const conf = require("./../conf/config");
-
+const crypto = require("crypto");
 function utils(){
 	
 }
@@ -52,8 +52,9 @@ utils.prototype.unzip = function(zippath, unzipdir ,callback){
     });
 }
 
+//压缩命令要添加 -X 保持对相同文件压缩出来的zip包 MD5保持一致
 utils.prototype.zip = function(targetpath , zippath ,callback){
-    var cmd = "zip " + targetpath + " " + zippath;
+    var cmd = "cd " + targetpath + ";zip -X -q -r -o " + zippath + " ./";
     exec(cmd,function(err,stdout,stderr){  //执行命令行
         if(err){
             console.log(">>> 压缩文件失败" + err + stderr );
@@ -67,7 +68,7 @@ utils.prototype.zip = function(targetpath , zippath ,callback){
 
 
 utils.prototype.doBackup = function(unzipdir , backup , callback){
-    var cmd = "mkdir -p "+ backup + "; cp -R " + unzipdir + "/* " + backup
+    var cmd = "mkdir -p "+ backup + "; cp -R " + unzipdir + " " + backup 
     exec(cmd,function(err,stdout,stderr){  //执行命令行
         if(err){
             console.log(">>> 复制 失败");
@@ -78,6 +79,31 @@ utils.prototype.doBackup = function(unzipdir , backup , callback){
         }
     });
 }
+
+utils.prototype.doBackup2List = function(unzipdir , backupList ,callback){
+    //复制到多个文件目录下
+    if(backupList && backupList.length > 0 ){
+        var cmd = "echo ";
+        for (var i = 0; i < backupList.length; i++) {
+            cmd += backupList[i] + " ";
+        };
+
+        cmd += "| xargs -n 1 cp -f " + unzipdir ;
+        console.log(">>> 复制文件到多个位置 " + cmd);
+        exec(cmd,function(err,stdout,stderr){  //执行命令行
+            if(err){
+                console.log(">>> 多路径复制失败" + stdout + stderr);
+                callback(false);
+            }else{
+                console.log(">>> 多路径复制成功");
+                callback(true);
+            }
+        });
+    }else{
+        callback(false);
+    }
+}
+
 
 utils.prototype.cleanDir = function(dir , callback){
     var cmd = "rm -rf "+ dir + "/*"
@@ -104,7 +130,9 @@ utils.prototype.compareDir = function(baseDir , newDir,  temppath ,callback){
                 }
 
                 console.log(">> python Log ：" + stdout);
-                callback(true)
+                if(stdout.indexOf("main_end") !== -1){
+                    callback(true)
+                }
             });
 }
 
@@ -134,6 +162,61 @@ utils.prototype.readDirSync = function(path){
     })
     return dir_data
 }
+
+utils.prototype.md5 = function(str){
+
+}
+
+utils.prototype.md5file = function(file , callback){
+    if(file){
+        var md5sum = crypto.createHash("md5");
+        var stream = fs.createReadStream(file);
+        stream.on('data',function(chunk){
+            md5sum.update(chunk);
+        });
+        stream.on('end',function(){
+            callback(md5sum.digest("hex").toLowerCase());
+        });
+    }else{
+        callback(null);
+    }
+}
+
+utils.prototype.replaceAll = function(str , tarStr , placeStr){
+    
+}
+
+utils.prototype.renameExtent = function(path , ext , newext , callback){
+    var cmd = "python ./pythons/rename.py " + path + " " + ext + " " + newext
+    console.log(">>> rename " + cmd);
+    exec(cmd,function(err,stdout,stderr){  //执行命令行
+                if(err){
+                    console.log(">>> 重名命令失败" + err + stderr );
+                    callback(false)
+                    return 
+                }
+
+                console.log(">> python Log ：" + stdout);
+                if(stdout.indexOf("main_end") !== -1){
+                    callback(true)
+                }
+            });
+} 
+
+utils.prototype.delete = function(path , callback){
+    var cmd = "rm -rf " + path 
+    console.log(">>> delete " + cmd);
+    exec(cmd,function(err,stdout,stderr){  //执行命令行
+                if(err){
+                    console.log(">>> 删除命令失败" + err + stderr );
+                    callback(false)
+                    return 
+                }
+                console.log(">>> 删除成功");
+                callback(true)
+            });
+}
+
 
 const utils_ = new utils()
 module.exports = utils_

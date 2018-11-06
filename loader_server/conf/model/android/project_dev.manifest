@@ -1,0 +1,11 @@
+{
+	"packageUrl" : "http://www.xxxx.com/android/",
+	"remoteManifestUrl" : "http://www.xxxx.com/android/project_dev.manifest",
+	"remoteVersionUrl"  : "http://www.xxxx.com/android/version_dev.manifest",
+	"version" : "0.0.0",
+	"engineVersion" : "3.x dev",
+	"searchPaths" : [ "src","res" ],
+
+	"assets" : {
+	}
+}

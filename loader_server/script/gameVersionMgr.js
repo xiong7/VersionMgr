@@ -398,10 +398,10 @@ gameitems_info.prototype.deleteVersion = function(mode,gameid,version,callback){
 
 //拷贝到资源服务目录下 game
 gameitems_info.prototype.copy2downloadServer = function(mode , gameid , version ,callback){
-	var backuppath = conf.versionBackup + "/Dev/" + gameid + "/" + version;
+	var backuppath = conf.versionBackup + "/Dev/" + gameid + "/" + version + "/u";
 	var gamepath   = conf.gameDevDir + "/" + gameid + "/" + version;
 	if(mode == conf.Dis){
-		backuppath = conf.versionBackup + "/Dis/" + gameid + "/" + version;
+		backuppath = conf.versionBackup + "/Dis/" + gameid + "/" + version + "/u";
 		gamepath   = conf.gameDevDir + "/" + gameid + "/" + version;
 	}
 

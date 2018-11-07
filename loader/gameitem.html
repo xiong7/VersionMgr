@@ -140,8 +140,21 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        
+      <div class="modal fade p-5" id="deletemodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" contenteditable="true">提示</h5>
+            </div>
+            <div class="modal-body" style="">
+              <h1 class="text-left text-dark" id="delete_version" value="nil" >是否删除</h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="deleteClick" onclick="deleteVersion()" >确定</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
   </div>

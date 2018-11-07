@@ -40,6 +40,17 @@ function editversion(version){
   alert(">>> 暂时 <<<" + version);
 }
 
+function showDeleteModal(version){
+  document.getElementById("delete_version").innerHTML = "是否删除此版本 : "+ version;
+  document.getElementById("deleteClick").onclick = function(){
+    console.log(">>> 删除版本" + version);
+    deleteVersion(version);
+    $('#deletemodal').modal('hide')
+  };
+
+  $('#deletemodal').modal('show')
+}
+
 function deleteVersion(version){
     var xmlhttp;
     if (window.XMLHttpRequest)
@@ -115,7 +126,7 @@ function getGameVersions(){
                                       + '      <a href="#" class="version_edit" onclick="editversion(\'' + value+ '\')" > version '+ value +' </a>          '    
                                       + '    </div>                                                                                         ' 
                                       + '    <div class="col-md-1">                                                                         '   
-                                      + '      <a href="#" class="version_dele" onclick="deleteVersion(\'' + value+ '\')" > 删除 </a>                        '              
+                                      + '      <a href="#" class="version_dele" onclick="showDeleteModal(\'' + value+ '\')" > 删除 </a>                        '              
                                       + '    </div>                                                                                         '
                                       + '  </div>                                                                                           '     
                                       + '</div>                                                                                             '     

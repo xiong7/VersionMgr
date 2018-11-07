@@ -103,7 +103,7 @@ function getGameVersions(){
             console.log(list_);
             var context_ = "";
             var select_versions = ""
-            if(list_){
+            if(list_ && list_.length >0){
               for (var i = 0; i < list_.length; i++) {
                 var item_ = list_[i]
                 if(item_ && item_.type== "dir"){
@@ -123,6 +123,8 @@ function getGameVersions(){
                   select_versions += "<a class=\"dropdown-item\" href=\"#\" onclick=\"selectVesion('"+ value +"')\">"+ value+ "</a>";
                 }
               };
+            }else{
+              context_ += "<p class=\"lead\">.没有版本内容.</p>"
             }
           }else{
             context_ += "<p class=\"lead\">.没有版本内容.</p>"

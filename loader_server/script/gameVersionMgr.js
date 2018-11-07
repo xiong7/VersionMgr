@@ -148,7 +148,15 @@ gameitems_info.prototype.makeVersionManifast = function(filename , gameid, versi
 						    						callback(0 , "迭代内容失败");
 						    						return
 						    					}
-						    					callback(1 , "success");
+
+						    					that.copy2downloadServer(mode, gameid , version , function(status){
+						    						if(status==false){
+						    							callback(0 , "迭代内容拷贝到下载服失败");
+						    							return
+						    						}
+						    						callback(1 , "success");
+						    					});
+						    					
 						    				});
 						    				
 						    			});
@@ -167,24 +175,25 @@ gameitems_info.prototype.makeVersionManifast = function(filename , gameid, versi
 					    						return;
 					    					}
 
-					    			// 		//把update内容拷贝到版本服务下
-					    			// 		var targetupdate = baseDir + "/u/*"
-					    			// 		var backupdate = backuppath + "/u"
-					    			// 		utils.doBackup(targetupdate , backupdate , function(status){
-					    			// 			if(status == false){
-					    			// 				console.log(">>> 迭代版本拷贝版本内容失败 " + targetupdate + " 2 "+ backupdate);
-					    			// 				callback(0 , "迭代版本拷贝版本内容失败");
-					    			// 				return;
-					    			// 			}
-
-												callback(1 , "success");
-					    			// 		});
-					    					
-					    				})
+							    			that.copy2downloadServer(mode, gameid , version , function(status){
+					    						if(status==false){
+					    							callback(0 , "迭代内容拷贝到下载服失败");
+					    							return
+					    						}
+					    						callback(1 , "success");
+					    					});
+						    					
+						    			})
 
 					    			}else{
 					    				//使用附带的版本文件
-					    				callback(1 , "success");
+					    				that.copy2downloadServer(mode, gameid , version , function(status){
+				    						if(status==false){
+				    							callback(0 , "迭代内容拷贝到下载服失败");
+				    							return
+				    						}
+				    						callback(1 , "success");
+				    					});
 					    			}
 					    		})
 					    		
@@ -385,6 +394,18 @@ gameitems_info.prototype.deleteVersion = function(mode,gameid,version,callback){
 
 		callback(1,"success");
 	})
+}
+
+//拷贝到资源服务目录下 game
+gameitems_info.prototype.copy2downloadServer = function(mode , gameid , version ,callback){
+	var backuppath = conf.versionBackup + "/Dev/" + gameid + "/" + version;
+	var gamepath   = conf.gameDevDir + "/" + gameid + "/" + version;
+	if(mode == conf.Dis){
+		backuppath = conf.versionBackup + "/Dis/" + gameid + "/" + version;
+		gamepath   = conf.gameDevDir + "/" + gameid + "/" + version;
+	}
+
+	utils.doBackup(backuppath +"/*" , gamepath +"" , callback);
 }
 
 const gameitems = new gameitems_info()

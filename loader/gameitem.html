@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/animate.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/loading.css">
+  <link rel="stylesheet" type="text/css" href="css/tips.css">
 
   <link href="./css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
    <script src="./comp_js/jquery-2.0.3.min.js"></script>
@@ -84,6 +85,12 @@
               </div>
               <div class="modal-header">
                 <h5 class="modal-title text-dark" contenteditable="true">创建版本</h5>
+                <div class="content">
+                      <div class="help-tip">
+                        <p>ZIP包内容<br>src、res 是工程创建版本的源码和资源<br>.apk .iap 具体的包名暂时没特别约定，但是会和下载页面相关联<br>u目录是可选的目录，里面包含版本更新资源和文件,目录结构如图来。不添u内容的话会根据迭代版本或者默认生成一份版本文件<br>zip包的名字需要和创建的版本一致(例如创建1.0.0版本 ,上传的zip包名称为 1.0.0.zip)<br><img src="img/tips.png"/></p>
+                      </div>
+                </div>      
+
               </div>
               <div class="modal-body" style="">
                 <form id="c_form-h" class="" enctype="multipart/form-data" name="fileinfo">
@@ -101,7 +108,7 @@
                       </div>
                     </div>
                   </div>
-
+      
                   <div class="row">
                     <div class="col-md-5">
                       <div class="btn-group w-100">
